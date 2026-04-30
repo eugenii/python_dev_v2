@@ -8,6 +8,7 @@ def validate_record(name: str, birthdate: str) -> bool:
     try:
         date = datetime.datetime.strptime(birthdate, FORMAT)
     except ValueError:
+        print('Некорректный формат даты в записи: {}, {}'.format(name, birthdate))
         return False
     return True
 
@@ -25,7 +26,7 @@ def process_people(entries: list[tuple]) -> dict:
             good_count += 1
         else:
             bad_count += 1
-            print('Некорректный формат даты в записи: {}, {}'.format(name, birthdate))
+            
     # Верните словарь.
     return dict([('good', good_count), ('bad', bad_count)])
 
