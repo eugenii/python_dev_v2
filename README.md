@@ -6,6 +6,8 @@ https://contest.yandex.ru/contest/52598/problems
 
 https://contest.yandex.ru/contest/52599/problems
 
+https://contest.yandex.ru/contest/52718/problems
+
 
 
 
