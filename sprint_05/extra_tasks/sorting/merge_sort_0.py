@@ -1,29 +1,23 @@
 # Merge sort level 0
 
-def merge_sort_0(left: list[int], right: list[int]) -> list[int]:
+def merge(left: list[int], right: list[int]) -> list[int]:
 
-    left_len = len(left)
-    right_len = len(right)
+    if not all(isinstance(x, int) for x in left) or not all(isinstance(x, int) for x in right):
+        raise TypeError("Списки содержат элементы несовместимых типов!")
 
+    left_idx = 0
+    right_idx = 0
     res = []
-    try:
-        if right_len == 0:
-            return left
-        if left_len == 0:
-            return left
-        min_range = min(left_len, right_len)
-        for i in range(min_range):
-            if left[i] < right[i]:
-                res.append(left[i])
-            else:
-                res.append(right[i])
-        if right_len > left_len:
-            res.append(right[right_len:])
-        if left_len > right_len:
-            res.append(left[right_len:])
-    except TypeError:
-        pass
+
+    while left_idx < len(left) and right_idx < len(right):
+        if left[left_idx] < right[right_idx]:
+            res.append(left[left_idx])
+            left_idx += 1
+        else:
+            res.append(right[right_idx])
+            right_idx += 1
+
+    res += left[left_idx:] + right[right_idx:]
+ 
     return res
 
-
-print(merge_sort_0([1, [], 2, 3], [4, 5, 6]))

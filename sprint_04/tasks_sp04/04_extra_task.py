@@ -25,7 +25,7 @@ def solution(node, idx):
         node = node.next_item
         pos += 1
     
-    previous.next_item = node.next_item
+    previous.next_item = node.next_item 
     return head
 
 
