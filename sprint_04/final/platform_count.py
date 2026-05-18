@@ -3,7 +3,7 @@
 # Обоснование алгоритма:
 # Для решения задачи используется жадный алгоритм совместно с методом двух указателей.
 # На вход функции solve() передается список весов роботов и максимальная грузоподъемность одной платформы.
-# Сортировку проводим сразу после получения данных.
+# Сортировку проводим непосредственно в функции solve().
 # Затем мы сопоставляем самого тяжёлого робота (указатель right) с самым лёгким (указатель left).
 # Если их суммарный вес не превышает mass_limit, они могут поехать на одной платформе (мы сдвигаем оба указателя).
 # Если они вместе не помещаются, то самый тяжёлый робот занимает платформу в одиночку (сдвигается только правый указатель),
@@ -35,14 +35,15 @@ def solve(probs: list[int], mass_limit: int) -> int:
     Returns:
         Минимальное количество транспортных платформ.
     """
-    left = 0
-    right = len(probs) - 1
-    platforms = 0
+    probs = sorted(probs)
+    lightest_idx: int = 0
+    heaviest_idx: int = len(probs) - 1
+    platforms: int = 0
     
-    while left <= right:
-        if probs[left] + probs[right] <= mass_limit:
-            left += 1
-        right -= 1
+    while lightest_idx <= heaviest_idx:
+        if probs[lightest_idx] + probs[heaviest_idx] <= mass_limit:
+            lightest_idx += 1
+        heaviest_idx -= 1
         platforms += 1
         
     return platforms
@@ -50,6 +51,4 @@ def solve(probs: list[int], mass_limit: int) -> int:
 
 if __name__ == '__main__':
     data: list[int] = [int(i) for i in sys.stdin.readline().split()]
-    data.sort()
-    mass_limit: int = int(input())
-    print(solve(data, mass_limit))
+    print(solve(data, int(input())))
