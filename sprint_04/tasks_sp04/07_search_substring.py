@@ -1,27 +1,24 @@
 # Поик подстроки в строке
 
-def search(line: str) -> int:
-    if line == '':
-        return 0
-    
-    left_idx = 0
-    right_idx = 1
-    # res = line[left_idx]
+def max_unique_substring_len(s: str) -> str:
+
+    # Словарь для хранения символов и идексов их последнего вхождения
+    seen_chars = {}
+
+    left = 0
     max_len = 0
 
-    while right_idx < len(line):
-        if line[left_idx] == line[right_idx]:
-            max_len = max(max_len, right_idx - left_idx)
-            left_idx += 1
-            right_idx = left_idx + 1
-            continue
-        right_idx += 1
-
-    return max(max_len, right_idx - left_idx)
-
-
-print(search('cbbb'))
+    for right, char in enumerate(s):
+        if char in seen_chars and seen_chars[char] >= left:
+            left = seen_chars[char] + 1    # Смещаем СТРОГО за предидущее вхождение.
         
-            
+        seen_chars[char] = right   # Записываем индекс текущего символа
+
+        # Счиатем длину окна
+        max_len = max(max_len, right - left + 1)
+
+    return max_len
 
 
+if __name__ == '__main__':
+    print(max_unique_substring_len(input()))
