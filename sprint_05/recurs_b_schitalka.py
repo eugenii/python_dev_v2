@@ -18,7 +18,6 @@ def schitalka_recursive(pretenders, takt, pos=0):
     return schitalka_recursive(pretenders, takt, pos=pos)
     
 
-
 if __name__ == '__main__':
     pretenders = list(range(1, int(input()) + 1))
     print(schitalka_recursive(pretenders, int(input())))
