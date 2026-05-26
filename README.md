@@ -10,6 +10,8 @@ https://contest.yandex.ru/contest/52718/problems
 
 https://contest.yandex.ru/contest/53688/problems/   Рекурсия
 
+https://contest.yandex.ru/contest/53730/problems/   Сортировка
+
 
 
 
