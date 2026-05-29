@@ -17,7 +17,18 @@ def schitalka_recursive(pretenders, takt, pos=0):
     pretenders.pop(pos)
     return schitalka_recursive(pretenders, takt, pos=pos)
     
+# Решение через формулу Иосифа Флавия (от Google AI)
+
+def josephus(n: int, k: int) -> int:
+    # Базовый случай: если остался 1 человек, он гарантированно побеждает (номер 1)
+    if n == 1:
+        return 1
+    
+    # Рекурсивный шаг по формуле Флавия
+    return (josephus(n - 1, k) + k - 1) % n + 1
+
 
 if __name__ == '__main__':
-    pretenders = list(range(1, int(input()) + 1))
-    print(schitalka_recursive(pretenders, int(input())))
+    # pretenders = list(range(1, int(input()) + 1))
+    # print(schitalka_recursive(pretenders, int(input())))
+    
