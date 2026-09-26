@@ -23,19 +23,26 @@ message = 'Вам телеграмма! (с посылкой)'
 vk.messages.send(
     user_id=user_id,
     message=message,
-    random_id=random.randint(0, 100000)  
+    random_id=random.randint(0, 100000)
     # random_id нужен для предотвращения дублирования сообщений
 )
 
 
-def handle_start(user_id):
+def get_user_name(vk, user_id):
+    user_info = vk.users.get(user_ids=user_id)[0]
+    return user_info['first_name']
+
+def handle_start(vk, message):
+    user_id = message['from_id']
+    name = get_user_name(vk, user_id)
     vk.messages.send(
         user_id=user_id,
-        message="Спасибо, что включили меня",
+        message=f"Спасибо, что включили меня, {name}",
         random_id=random.randint(0, 100000)
     )
 
-def handle_text(user_id):
+def handle_text(vk, message):
+    user_id = message['from_id']
     vk.messages.send(
         user_id=user_id,
         message="Привет, я KittyBot!",
@@ -45,13 +52,9 @@ def handle_text(user_id):
 for event in longpoll.listen():
     if event.type == VkBotEventType.MESSAGE_NEW:
         message = event.object.message
-        user_id = message['from_id']
-
-        # Проверим, есть ли текст в сообщении
         text = message.get('text', '').strip().lower()
-        if text:  # Если текст не пустой
+        if text:
             if text == 'начать':
-                handle_start(user_id)
+                handle_start(vk, message)
             else:
-                handle_text(user_id)
-        # На вложения бот по-прежнему не реагирует 
+                handle_text(vk, message) 
